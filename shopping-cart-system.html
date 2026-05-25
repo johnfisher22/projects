@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shopping Cart System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#06b6d4);
+    overflow:hidden;
+}
+
+/* MAIN CONTAINER */
+
+.container{
+    width:95%;
+    max-width:1250px;
+    height:92vh;
+    background:rgba(255,255,255,0.12);
+    border-radius:30px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+    border:1px solid rgba(255,255,255,0.2);
+    padding:25px;
+    overflow:auto;
+    color:white;
+}
+
+/* TITLE */
+
+.title{
+    text-align:center;
+    font-size:45px;
+    font-weight:bold;
+    margin-bottom:8px;
+    color:#fff;
+    text-shadow:0 0 15px rgba(255,255,255,0.5);
+}
+
+.subtitle{
+    text-align:center;
+    margin-bottom:25px;
+    color:#dbeafe;
+    font-size:18px;
+}
+
+/* TOP PANEL */
+
+.top-panel{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-bottom:25px;
+}
+
+select,input{
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+    width:240px;
+    background:white;
+}
+
+/* BUTTON */
+
+.run-btn{
+    padding:15px 28px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(45deg,#22c55e,#16a34a);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 18px rgba(34,197,94,0.4);
+}
+
+.run-btn:hover{
+    transform:scale(1.08);
+}
+
+/* INPUT AREA */
+
+.form-area{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    background:rgba(255,255,255,0.1);
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:20px;
+}
+
+/* OUTPUT BOX */
+
+.output{
+    background:rgba(0,0,0,0.25);
+    border-radius:20px;
+    padding:20px;
+    min-height:280px;
+    overflow:auto;
+}
+
+.output h2{
+    margin-bottom:15px;
+    color:#93c5fd;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th,td{
+    padding:14px;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    text-align:center;
+}
+
+th{
+    background:#2563eb;
+}
+
+/* MESSAGE STYLES */
+
+.success{
+    color:#22c55e;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.error{
+    color:#ef4444;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.warning{
+    color:#facc15;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.checkout-box{
+    margin-top:20px;
+    padding:25px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.12);
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    line-height:1.8;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    color:#dbeafe;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="title">🛒 Shopping Cart System</div>
+
+    <div class="subtitle">
+        Book Items • Electronic Items • Grocery Items
+    </div>
+
+    <!-- OPERATION MENU -->
+
+    <div class="top-panel">
+
+        <select id="operation">
+
+            <option value="">SELECT OPERATION</option>
+
+            <option value="1">1 TO ADD NEW ITEM TO CART</option>
+            <option value="2">2 TO VIEW YOUR SHOPPING CART</option>
+            <option value="3">3 TO UPDATE AN ITEM</option>
+            <option value="4">4 TO REMOVE AN ITEM</option>
+            <option value="5">5 TO SAVE ITEMS TO TEXT FILE</option>
+            <option value="6">6 EMPTY SHOPPING CART</option>
+            <option value="7">7 TO CHECKOUT YOUR SHOPPING CART</option>
+            <option value="8">8 TO VIEW ITEMS BY TYPE</option>
+            <option value="9">9 TO SEARCH AN ITEM BY ID</option>
+            <option value="10">10 TO EXIT THE PROGRAM</option>
+
+        </select>
+
+        <button class="run-btn" onclick="runApplication()">
+            ▶ RUN APPLICATION
+        </button>
+
+    </div>
+
+    <!-- INPUT SECTION -->
+
+    <div class="form-area">
+
+        <input type="text" id="itemId" placeholder="Enter Item ID">
+
+        <input type="text" id="itemName" placeholder="Enter Item Name">
+
+        <select id="itemType">
+            <option value="">Select Item Type</option>
+            <option value="Book">Book</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Grocery">Grocery</option>
+        </select>
+
+        <input type="number" id="itemPrice" placeholder="Enter Item Price">
+
+        <input type="number" id="itemQty" placeholder="Enter Quantity">
+
+    </div>
+
+    <!-- OUTPUT -->
+
+    <div class="output" id="output">
+
+        <h2>Application Output</h2>
+
+        <p>Welcome To Shopping Cart System...</p>
+
+    </div>
+
+    <div class="footer">
+    Designed By Johnfisher Uchem | Software Engineering Student | All rights reserved  (©) 2026
+    </div>
+
+</div>
+
+<script>
+
+/* SHOPPING CART ARRAY */
+
+let shoppingCart = [];
+
+/* CLEAR OUTPUT */
+
+function clearOutput(){
+
+    document.getElementById("output").innerHTML = `
+        <h2>Application Output</h2>
+    `;
+}
+
+/* RESET INPUT FIELDS */
+
+function resetInputs(){
+
+    document.getElementById("itemId").value = "";
+    document.getElementById("itemName").value = "";
+    document.getElementById("itemType").value = "";
+    document.getElementById("itemPrice").value = "";
+    document.getElementById("itemQty").value = "";
+}
+
+/* DISPLAY MESSAGE */
+
+function showMessage(message,type="success"){
+
+    document.getElementById("output").innerHTML += `
+        <div class="${type}">
+            ${message}
+        </div>
+    `;
+}
+
+/* GET INPUT VALUES */
+
+function getItemData(){
+
+    return{
+
+        id:document.getElementById("itemId").value.trim(),
+        name:document.getElementById("itemName").value.trim(),
+        type:document.getElementById("itemType").value,
+        price:parseFloat(document.getElementById("itemPrice").value),
+        quantity:parseInt(document.getElementById("itemQty").value)
+
+    };
+}
+
+/* MAIN APPLICATION */
+
+function runApplication(){
+
+    clearOutput();
+
+    const operation = document.getElementById("operation").value;
+
+    switch(operation){
+
+        case "1":
+            addItem();
+            break;
+
+        case "2":
+            viewCart();
+            break;
+
+        case "3":
+            updateItem();
+            break;
+
+        case "4":
+            removeItem();
+            break;
+
+        case "5":
+            saveToFile();
+            break;
+
+        case "6":
+            emptyCart();
+            break;
+
+        case "7":
+            checkout();
+            break;
+
+        case "8":
+            viewItemsByType();
+            break;
+
+        case "9":
+            searchItem();
+            break;
+
+        case "10":
+            exitProgram();
+            break;
+
+        default:
+            showMessage("❌ INVALID INPUT! PLEASE SELECT AN OPERATION.", "error");
+    }
+
+}
+
+/* ADD ITEM */
+
+function addItem(){
+
+    const item = getItemData();
+
+    if(
+        item.id === "" ||
+        item.name === "" ||
+        item.type === "" ||
+        isNaN(item.price) ||
+        isNaN(item.quantity)
+    ){
+
+        showMessage("❌ PLEASE ENTER VALID ITEM DETAILS.", "error");
+        resetInputs();
+        return;
+    }
+
+    shoppingCart.push(item);
+
+    showMessage("✅ ITEM ADDED SUCCESSFULLY!");
+
+    resetInputs();
+
+    viewCart();
+}
+
+/* VIEW CART */
+
+function viewCart(){
+
+    if(shoppingCart.length === 0){
+
+        showMessage("⚠ SHOPPING CART IS EMPTY.", "warning");
+        resetInputs();
+        return;
+    }
+
+    let html = `
+
+        <h2>Your Shopping Cart</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>NAME</th>
+                <th>TYPE</th>
+                <th>PRICE</th>
+                <th>QUANTITY</th>
+                <th>TOTAL</th>
+
+            </tr>
+
+    `;
+
+    shoppingCart.forEach(item=>{
+
+        html += `
+
+            <tr>
+
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.type}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>${item.quantity}</td>
+                <td>$${(item.price*item.quantity).toFixed(2)}</td>
+
+            </tr>
+
+        `;
+    });
+
+    html += `</table>`;
+
+    document.getElementById("output").innerHTML = html;
+
+    resetInputs();
+}
+
+/* UPDATE ITEM */
+
+function updateItem(){
+
+    const item = getItemData();
+
+    let found = shoppingCart.find(i => i.id === item.id);
+
+    if(!found){
+
+        showMessage("❌ ITEM ID NOT FOUND.", "error");
+        resetInputs();
+        return;
+    }
+
+    found.name = item.name || found.name;
+    found.type = item.type || found.type;
+    found.price = !isNaN(item.price) ? item.price : found.price;
+    found.quantity = !isNaN(item.quantity) ? item.quantity : found.quantity;
+
+    showMessage("✅ ITEM UPDATED SUCCESSFULLY!");
+
+    resetInputs();
+
+    viewCart();
+}
+
+/* REMOVE ITEM */
+
+function removeItem(){
+
+    const id = document.getElementById("itemId").value.trim();
+
+    const index = shoppingCart.findIndex(i => i.id === id);
+
+    if(index === -1){
+
+        showMessage("❌ ITEM NOT FOUND.", "error");
+        resetInputs();
+        return;
+    }
+
+    shoppingCart.splice(index,1);
+
+    showMessage("✅ ITEM REMOVED SUCCESSFULLY!");
+
+    resetInputs();
+
+    viewCart();
+}
+
+/* SAVE TO TEXT FILE */
+
+function saveToFile(){
+
+    if(shoppingCart.length === 0){
+
+        showMessage("❌ NO ITEMS AVAILABLE TO SAVE.", "error");
+        resetInputs();
+        return;
+    }
+
+    let text = "SHOPPING CART ITEMS\n\n";
+
+    shoppingCart.forEach(item=>{
+
+        text += `
+ID: ${item.id}
+NAME: ${item.name}
+TYPE: ${item.type}
+PRICE: ${item.price}
+QUANTITY: ${item.quantity}
+
+---------------------------
+`;
+
+    });
+
+    const blob = new Blob([text],{type:"text/plain"});
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "shopping_cart.txt";
+
+    link.click();
+
+    showMessage("✅ ITEMS SAVED TO TEXT FILE SUCCESSFULLY!");
+
+    resetInputs();
+}
+
+/* EMPTY CART */
+
+function emptyCart(){
+
+    shoppingCart = [];
+
+    showMessage("🗑 SHOPPING CART EMPTIED SUCCESSFULLY!");
+
+    resetInputs();
+}
+
+/* CHECKOUT */
+
+function checkout(){
+
+    if(shoppingCart.length === 0){
+
+        showMessage("❌ SHOPPING CART IS EMPTY.", "error");
+        resetInputs();
+        return;
+    }
+
+    let total = 0;
+
+    shoppingCart.forEach(item=>{
+
+        total += item.price * item.quantity;
+
+    });
+
+    document.getElementById("output").innerHTML = `
+
+        <div class="checkout-box">
+
+            🛍 TOTAL ITEMS: ${shoppingCart.length}
+            <br><br>
+
+            💲 GRAND TOTAL: $${total.toFixed(2)}
+            <br><br>
+
+            ✅ THANK YOU FOR SHOPPING!
+
+        </div>
+
+    `;
+
+    resetInputs();
+}
+
+/* VIEW BY TYPE */
+
+function viewItemsByType(){
+
+    const type = document.getElementById("itemType").value;
+
+    if(type === ""){
+
+        showMessage("❌ PLEASE SELECT ITEM TYPE.", "error");
+        resetInputs();
+        return;
+    }
+
+    const filtered = shoppingCart.filter(i => i.type === type);
+
+    if(filtered.length === 0){
+
+        showMessage(`⚠ NO ${type.toUpperCase()} ITEMS FOUND.`, "warning");
+        resetInputs();
+        return;
+    }
+
+    let html = `
+
+        <h2>${type} Items</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>NAME</th>
+                <th>PRICE</th>
+                <th>QUANTITY</th>
+
+            </tr>
+
+    `;
+
+    filtered.forEach(item=>{
+
+        html += `
+
+            <tr>
+
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>$${item.price}</td>
+                <td>${item.quantity}</td>
+
+            </tr>
+
+        `;
+    });
+
+    html += `</table>`;
+
+    document.getElementById("output").innerHTML = html;
+
+    resetInputs();
+}
+
+/* SEARCH ITEM */
+
+function searchItem(){
+
+    const id = document.getElementById("itemId").value.trim();
+
+    const item = shoppingCart.find(i => i.id === id);
+
+    if(!item){
+
+        showMessage("❌ ITEM NOT FOUND.", "error");
+        resetInputs();
+        return;
+    }
+
+    document.getElementById("output").innerHTML = `
+
+        <h2>Item Found</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>NAME</th>
+                <th>TYPE</th>
+                <th>PRICE</th>
+                <th>QUANTITY</th>
+
+            </tr>
+
+            <tr>
+
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.type}</td>
+                <td>$${item.price}</td>
+                <td>${item.quantity}</td>
+
+            </tr>
+
+        </table>
+
+    `;
+
+    resetInputs();
+}
+
+/* EXIT PROGRAM */
+
+function exitProgram(){
+
+    document.getElementById("output").innerHTML = `
+
+        <div class="checkout-box">
+
+            ✅ PROGRAM CLOSED SUCCESSFULLY
+            <br><br>
+
+            👋 THANK YOU FOR USING THE SHOPPING CART SYSTEM
+
+        </div>
+
+    `;
+
+    resetInputs();
+
+    setTimeout(()=>{
+
+        document.querySelector(".container").style.display = "none";
+
+        alert("Application Closed Successfully!");
+
+    },2500);
+
+}
+
+</script>
+
+</body>
+</html>

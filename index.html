@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Johnfisher Uchem | Home</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="home-body">
+
+    <header>
+        <h1>Johnfisher Uchem</h1>
+        <!-- 
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Me</a>
+            <a href="projects.html">Projects</a>
+            <a href="skills.html">Skills</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        -->
+    </header>
+
+    <div class="overlay"></div>
+
+    <main class="login-container">
+        <form class="login-form" id="loginForm">
+            <h2>MSE. Software Engineering Students Portfolio</h2>
+
+            <input type="text" id="fullname" placeholder="Enter full name" required />
+
+            <input type="password" id="password" placeholder="Enter password" required />
+
+            <p>Generated 5 digits login password:
+                <span id="generatedPassword">00000</span>
+            </p>
+            <div class="password-box">
+            <!--  <label>Generate Password</label>  -->
+                <button type="button" onclick="generatePassword()">Generate</button>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>Designed By Johnfisher Uchem | Software Engineering Student | All rights reserved  (©) 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

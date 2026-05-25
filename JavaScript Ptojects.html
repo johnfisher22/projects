@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JavaScript Application Projects</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg,#0f172a,#111827,#1e293b);
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    text-align:center;
+    padding:40px 20px 10px;
+}
+
+header h1{
+    font-size:3rem;
+    margin-bottom:30px;
+    color:#fff;
+    letter-spacing:2px;
+    text-shadow:0 0 15px cyan;
+}
+
+/* ================= CLOCK ================= */
+
+.clock-container{
+    display:flex;
+    justify-content:center;
+    margin-bottom:40px;
+}
+
+.clock{
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    background: radial-gradient(circle,#0f172a,#020617);
+    border:8px solid cyan;
+    position:relative;
+    box-shadow:
+        0 0 30px cyan,
+        inset 0 0 30px #00ffff66;
+}
+
+.clock-center{
+    position:absolute;
+    width:15px;
+    height:15px;
+    background:white;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:10;
+}
+
+.hand{
+    position:absolute;
+    bottom:50%;
+    left:50%;
+    transform-origin:bottom;
+    transform:translateX(-50%) rotate(90deg);
+    border-radius:10px;
+}
+
+.hour{
+    width:8px;
+    height:80px;
+    background:#38bdf8;
+}
+
+.minute{
+    width:6px;
+    height:110px;
+    background:#22d3ee;
+}
+
+.second{
+    width:3px;
+    height:130px;
+    background:#f43f5e;
+}
+
+.number{
+    position:absolute;
+    color:white;
+    font-size:1.2rem;
+    font-weight:bold;
+}
+
+/* ================= PROJECTS ================= */
+
+.projects{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+    padding-bottom:50px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+    transition:0.4s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 0 25px cyan;
+}
+
+.card h2{
+    margin-bottom:20px;
+    font-size:1.3rem;
+    color:#67e8f9;
+}
+
+.btn{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#06b6d4,#3b82f6);
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+    background:linear-gradient(45deg,#3b82f6,#06b6d4);
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:1000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.modal-content{
+    background:#0f172a;
+    width:95%;
+    max-width:900px;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:20px;
+    padding:30px;
+    position:relative;
+    animation:popup 0.4s ease;
+    border:2px solid cyan;
+}
+
+@keyframes popup{
+    from{
+        transform:scale(0.5);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-size:2rem;
+    color:white;
+    cursor:pointer;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:10px;
+    font-size:1rem;
+}
+
+textarea{
+    resize:none;
+    height:100px;
+}
+
+.action-btn{
+    margin-top:10px;
+    padding:10px 18px;
+    border:none;
+    border-radius:12px;
+    background:#06b6d4;
+    color:white;
+    cursor:pointer;
+    margin-right:10px;
+    font-weight:bold;
+}
+
+.action-btn:hover{
+    background:#0284c7;
+}
+
+.output{
+    margin-top:15px;
+    padding:15px;
+    border-radius:12px;
+    background:#1e293b;
+}
+
+.error{
+    color:#f87171;
+    margin-top:10px;
+}
+
+/* Calculator */
+
+.calculator{
+    width:320px;
+    margin:auto;
+    background:#111827;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 0 20px cyan;
+}
+
+.calculator-display{
+    width:100%;
+    height:70px;
+    margin-bottom:15px;
+    text-align:right;
+    font-size:2rem;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#e2e8f0;
+    color:black;
+}
+
+.calc-buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.calc-buttons button{
+    height:60px;
+    font-size:1.3rem;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:#334155;
+    color:white;
+}
+
+.calc-buttons button:hover{
+    background:#0ea5e9;
+}
+
+/* Calendar */
+
+.calendar-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:5px;
+    margin-top:15px;
+}
+
+.calendar-day{
+    background:#1e293b;
+    padding:12px;
+    text-align:center;
+    border-radius:8px;
+}
+
+.note-display{
+    margin-top:20px;
+}
+
+@media(max-width:768px){
+    header h1{
+        font-size:2rem;
+    }
+
+    .clock{
+        width:250px;
+        height:250px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>JavaScript Application Projects</h1>
+
+    <!-- CLOCK -->
+    <div class="clock-container">
+        <div class="clock">
+            <div class="hand hour" id="hourHand"></div>
+            <div class="hand minute" id="minuteHand"></div>
+            <div class="hand second" id="secondHand"></div>
+            <div class="clock-center"></div>
+
+            <div class="number" style="top:15px; left:50%; transform:translateX(-50%)">12</div>
+            <div class="number" style="top:50%; right:15px; transform:translateY(-50%)">3</div>
+            <div class="number" style="bottom:15px; left:50%; transform:translateX(-50%)">6</div>
+            <div class="number" style="top:50%; left:15px; transform:translateY(-50%)">9</div>
+        </div>
+    </div>
+</header>
+
+<!-- PROJECTS -->
+
+<section class="projects">
+
+    <div class="card">
+        <h2>Digital Electronic Calendar</h2>
+        <button class="btn" onclick="openModal('calendarModal')">Open Calendar</button>
+    </div>
+
+    <div class="card">
+        <h2>Personal Finance & Expense Tracker</h2>
+        <button class="btn" onclick="openModal('expenseModal')">Track Expenses</button>
+    </div>
+
+    <div class="card">
+        <h2>Vending Machine</h2>
+        <button class="btn" onclick="openModal('vendingModal')">Buy Drinks</button>
+    </div>
+
+    <div class="card">
+        <h2>Calculator</h2>
+        <button class="btn" onclick="openModal('calculatorModal')">Use Calculator</button>
+    </div>
+
+    <div class="card">
+        <h2>Temperature Converter</h2>
+        <button class="btn" onclick="openModal('tempModal')">Convert Temperature</button>
+    </div>
+
+</section>
+
+<!-- ================= CALENDAR MODAL ================= -->
+
+<div class="modal" id="calendarModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal('calendarModal')">&times;</span>
+
+<h2>Digital Electronic Calendar</h2>
+
+<select id="yearSelect">
+    <option value="">Select Year</option>
+    <option>2026</option>
+    <option>2027</option>
+</select>
+
+<select id="monthSelect">
+    <option value="">Select Month</option>
+</select>
+
+<input type="number" id="dayInput" placeholder="Enter Day">
+
+<textarea id="calendarNote" placeholder="Write notes..."></textarea>
+
+<button class="action-btn" onclick="saveNote()">Save Note</button>
+<button class="action-btn" onclick="clearCalendar()">Clear</button>
+
+<div class="error" id="calendarError"></div>
+
+<div class="note-display output" id="savedNotes"></div>
+
+<div class="calendar-grid" id="calendarGrid"></div>
+
+</div>
+</div>
+
+<!-- ================= EXPENSE TRACKER ================= -->
+
+<div class="modal" id="expenseModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal('expenseModal')">&times;</span>
+
+<h2>Personal Finance & Expense Tracker</h2>
+
+<input type="text" id="expenseName" placeholder="Expense Name">
+<input type="number" id="expenseAmount" placeholder="Expense Amount">
+<input type="date" id="expenseDate">
+
+<button class="action-btn" onclick="addExpense()">Add Expense</button>
+<button class="action-btn" onclick="clearExpenses()">Clear All</button>
+
+<div class="output" id="expenseList"></div>
+<div class="output" id="totalExpense">Total Expenses: $0</div>
+
+</div>
+</div>
+
+<!-- ================= VENDING MACHINE ================= -->
+
+<div class="modal" id="vendingModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal('vendingModal')">&times;</span>
+
+<h2>Vending Machine</h2>
+
+<div class="output">
+<p>Coke = $2.00</p>
+<p>Sprite = $2.00</p>
+<p>Bottle Water = $2.50</p>
+</div>
+
+<select id="drinkSelect">
+    <option value="">Select Drink</option>
+    <option value="2">Coke</option>
+    <option value="2">Sprite</option>
+    <option value="2.5">Bottle Water</option>
+</select>
+
+<input type="number" id="moneyInput" placeholder="Insert Money">
+
+<button class="action-btn" onclick="buyDrink()">Buy</button>
+<button class="action-btn" onclick="clearVending()">Clear</button>
+
+<div class="output" id="vendingOutput"></div>
+<div class="error" id="vendingError"></div>
+
+</div>
+</div>
+
+<!-- ================= CALCULATOR ================= -->
+
+<div class="modal" id="calculatorModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal('calculatorModal')">&times;</span>
+
+<h2>Calculator</h2>
+
+<div class="calculator">
+<input type="text" id="calcDisplay" class="calculator-display" readonly>
+
+<div class="calc-buttons">
+<button onclick="appendCalc('7')">7</button>
+<button onclick="appendCalc('8')">8</button>
+<button onclick="appendCalc('9')">9</button>
+<button onclick="appendCalc('/')">÷</button>
+
+<button onclick="appendCalc('4')">4</button>
+<button onclick="appendCalc('5')">5</button>
+<button onclick="appendCalc('6')">6</button>
+<button onclick="appendCalc('*')">×</button>
+
+<button onclick="appendCalc('1')">1</button>
+<button onclick="appendCalc('2')">2</button>
+<button onclick="appendCalc('3')">3</button>
+<button onclick="appendCalc('-')">-</button>
+
+<button onclick="appendCalc('0')">0</button>
+<button onclick="appendCalc('.')">.</button>
+<button onclick="calculate()">=</button>
+<button onclick="appendCalc('+')">+</button>
+</div>
+
+<button class="action-btn" onclick="clearCalc()">Clear</button>
+
+<div class="error" id="calcError"></div>
+
+</div>
+</div>
+</div>
+
+<!-- ================= TEMPERATURE CONVERTER ================= -->
+
+<div class="modal" id="tempModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal('tempModal')">&times;</span>
+
+<h2>Temperature Converter</h2>
+
+<input type="number" id="tempInput" placeholder="Enter Temperature">
+
+<select id="conversionType">
+<option value="fToC">Fahrenheit to Celsius</option>
+<option value="cToF">Celsius to Fahrenheit</option>
+</select>
+
+<button class="action-btn" onclick="convertTemp()">Convert</button>
+<button class="action-btn" onclick="clearTemp()">Clear</button>
+
+<div class="output" id="tempOutput"></div>
+<div class="error" id="tempError"></div>
+
+</div>
+</div>
+
+<script>
+
+/* ================= CLOCK ================= */
+
+function updateClock(){
+    const now = new Date();
+
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const second = now.getSeconds();
+
+    const hourDeg = (hour % 12) * 30 + minute * 0.5;
+    const minuteDeg = minute * 6;
+    const secondDeg = second * 6;
+
+    document.getElementById("hourHand").style.transform =
+        `translateX(-50%) rotate(${hourDeg}deg)`;
+
+    document.getElementById("minuteHand").style.transform =
+        `translateX(-50%) rotate(${minuteDeg}deg)`;
+
+    document.getElementById("secondHand").style.transform =
+        `translateX(-50%) rotate(${secondDeg}deg)`;
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+/* ================= MODAL ================= */
+
+function openModal(id){
+    document.getElementById(id).style.display="flex";
+}
+
+function closeModal(id){
+    document.getElementById(id).style.display="none";
+}
+
+/* ================= CALENDAR ================= */
+
+const months = [
+"January","February","March","April","May","June",
+"July","August","September","October","November","December"
+];
+
+const monthSelect = document.getElementById("monthSelect");
+
+months.forEach((month,index)=>{
+    const option=document.createElement("option");
+    option.value=index;
+    option.textContent=month;
+    monthSelect.appendChild(option);
+});
+
+monthSelect.addEventListener("change", generateCalendar);
+
+function generateCalendar(){
+    const month = parseInt(monthSelect.value);
+    const year = parseInt(document.getElementById("yearSelect").value);
+
+    if(isNaN(month) || isNaN(year)) return;
+
+    const days = new Date(year, month+1,0).getDate();
+
+    const grid = document.getElementById("calendarGrid");
+    grid.innerHTML="";
+
+    for(let i=1;i<=days;i++){
+        const div=document.createElement("div");
+        div.className="calendar-day";
+        div.textContent=i;
+        grid.appendChild(div);
+    }
+}
+
+function saveNote(){
+    const year=document.getElementById("yearSelect").value;
+    const month=monthSelect.options[monthSelect.selectedIndex].text;
+    const day=document.getElementById("dayInput").value;
+    const note=document.getElementById("calendarNote").value;
+    const error=document.getElementById("calendarError");
+
+    error.textContent="";
+
+    if(!year || !day || !note){
+        error.textContent="Please enter valid date and note.";
+        return;
+    }
+
+    const notes=document.getElementById("savedNotes");
+
+    notes.innerHTML += `
+        <p><strong>${month} ${day}, ${year}</strong>: ${note}</p>
+    `;
+}
+
+function clearCalendar(){
+    document.getElementById("calendarNote").value="";
+    document.getElementById("dayInput").value="";
+    document.getElementById("savedNotes").innerHTML="";
+    document.getElementById("calendarError").textContent="";
+}
+
+/* ================= EXPENSE TRACKER ================= */
+
+let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+
+function renderExpenses(){
+    const list=document.getElementById("expenseList");
+    const total=document.getElementById("totalExpense");
+
+    list.innerHTML="";
+
+    let sum=0;
+
+    expenses.forEach(exp=>{
+        sum += exp.amount;
+
+        list.innerHTML += `
+        <p>${exp.name} - $${exp.amount} - ${exp.date}</p>
+        `;
+    });
+
+    total.innerHTML=`Total Expenses: $${sum.toFixed(2)}`;
+
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+}
+
+function addExpense(){
+    const name=document.getElementById("expenseName").value;
+    const amount=parseFloat(document.getElementById("expenseAmount").value);
+    const date=document.getElementById("expenseDate").value;
+
+    if(!name || isNaN(amount) || !date){
+        alert("Please enter valid expense information.");
+        return;
+    }
+
+    expenses.push({name, amount, date});
+    renderExpenses();
+
+    document.getElementById("expenseName").value="";
+    document.getElementById("expenseAmount").value="";
+    document.getElementById("expenseDate").value="";
+}
+
+function clearExpenses(){
+    expenses=[];
+    localStorage.removeItem("expenses");
+    renderExpenses();
+}
+
+renderExpenses();
+
+/* ================= VENDING MACHINE ================= */
+
+function buyDrink(){
+    const drink=document.getElementById("drinkSelect");
+    const price=parseFloat(drink.value);
+    const drinkName=drink.options[drink.selectedIndex].text;
+    const money=parseFloat(document.getElementById("moneyInput").value);
+
+    const output=document.getElementById("vendingOutput");
+    const error=document.getElementById("vendingError");
+
+    output.innerHTML="";
+    error.innerHTML="";
+
+    if(isNaN(price) || isNaN(money)){
+        error.innerHTML="Please enter valid input.";
+        return;
+    }
+
+    if(money < price){
+        error.innerHTML="Insufficient amount entered.";
+        return;
+    }
+
+    const balance=(money-price).toFixed(2);
+
+    output.innerHTML=`
+    <p>You bought ${drinkName}</p>
+    <p>Balance: $${balance}</p>
+    <p>Thank you for your purchase!</p>
+    `;
+}
+
+function clearVending(){
+    document.getElementById("moneyInput").value="";
+    document.getElementById("vendingOutput").innerHTML="";
+    document.getElementById("vendingError").innerHTML="";
+}
+
+/* ================= CALCULATOR ================= */
+
+function appendCalc(value){
+    document.getElementById("calcDisplay").value += value;
+}
+
+function calculate(){
+    const display=document.getElementById("calcDisplay");
+
+    try{
+        display.value=eval(display.value);
+        document.getElementById("calcError").innerHTML="";
+    }
+    catch{
+        document.getElementById("calcError").innerHTML="Invalid input!";
+    }
+}
+
+function clearCalc(){
+    document.getElementById("calcDisplay").value="";
+    document.getElementById("calcError").innerHTML="";
+}
+
+/* ================= TEMPERATURE ================= */
+
+function convertTemp(){
+    const temp=parseFloat(document.getElementById("tempInput").value);
+    const type=document.getElementById("conversionType").value;
+
+    const output=document.getElementById("tempOutput");
+    const error=document.getElementById("tempError");
+
+    output.innerHTML="";
+    error.innerHTML="";
+
+    if(isNaN(temp)){
+        error.innerHTML="Please enter valid temperature.";
+        return;
+    }
+
+    let result;
+
+    if(type==="fToC"){
+        result=((temp-32)*5/9).toFixed(2);
+        output.innerHTML=`${temp}°F = ${result}°C`;
+    }else{
+        result=((temp*9/5)+32).toFixed(2);
+        output.innerHTML=`${temp}°C = ${result}°F`;
+    }
+}
+
+function clearTemp(){
+    document.getElementById("tempInput").value="";
+    document.getElementById("tempOutput").innerHTML="";
+    document.getElementById("tempError").innerHTML="";
+}
+
+</script>
+
+</body>
+</html>
